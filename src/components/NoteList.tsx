@@ -6,8 +6,15 @@ import NoteItem from "./NoteItem";
 const NoteList: FC<{}> = memo(({}) => {
   const { notes, idCurrentNote } = useAppSelector((state) => state);
 
+  const style = {
+    stack: {
+      overflowY: "auto",
+      height: "85vh",
+    },
+  };
+
   return (
-    <Stack sx={{ overflowY: "auto", height: "85vh" }}>
+    <Stack sx={style.stack}>
       {notes.map((note, index) =>
         note.id === idCurrentNote ? (
           <NoteItem

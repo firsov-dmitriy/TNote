@@ -9,11 +9,21 @@ interface NoteTextProps {
   handlerEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const style = {
+  box: {
+    borderRadius: 5,
+    border: "2px solid black",
+    height: "80vh",
+    m: 1,
+    p: 2,
+  },
+};
+
 const NoteText: FC<NoteTextProps> = ({ note, handlerEdit }) => {
   return (
     <Box>
       <EditNote handlerEdit={handlerEdit} />
-      <Box p={2}>{note && marked.parse(note.description)}</Box>
+      <Box sx={style.box}>{note && marked.parse(note.description)}</Box>
     </Box>
   );
 };

@@ -9,16 +9,23 @@ interface WorkSpaceProps {
   description: string | undefined;
 }
 
+const style = {
+  box: {
+    width: "75%",
+    height: "100%",
+    mt: 3,
+  },
+};
+
 const WorkSpace: FC<WorkSpaceProps> = memo(({ description }) => {
   const { idCurrentNote } = useAppSelector((state) => state);
   return (
-    <Box width={"75%"} height={"100%"} marginTop={3}>
+    <Box sx={style.box}>
       <SimpleMDE
         onChange={(eve) =>
           idCurrentNote && changeNote(idCurrentNote, eve.toString())
         }
         value={description}
-        style={{ height: "100%" }}
       />
     </Box>
   );

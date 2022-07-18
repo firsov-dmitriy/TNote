@@ -8,6 +8,17 @@ interface EditNoteProps {
   handlerEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const style = {
+  btnGroup: {
+    display: "flex",
+    mt: 2,
+    justifyContent: "center",
+  },
+  input: {
+    mr: 2,
+  },
+};
+
 const EditNote: FC<EditNoteProps> = ({ handlerEdit }) => {
   const { idCurrentNote } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
@@ -18,10 +29,7 @@ const EditNote: FC<EditNoteProps> = ({ handlerEdit }) => {
     conf && idCurrentNote && deleteNote(idCurrentNote);
   };
   return (
-    <ButtonGroup
-      sx={{ display: "flex", mt: 2, justifyContent: "center" }}
-      aria-label="text button group"
-    >
+    <ButtonGroup sx={style.btnGroup} aria-label="text button group">
       <TextField
         onChange={(eve) => setValue(eve.target.value)}
         onKeyDown={(eve) => {
@@ -29,7 +37,7 @@ const EditNote: FC<EditNoteProps> = ({ handlerEdit }) => {
             dispatch(setSeachValue(serchValue));
         }}
         label={"Search"}
-        sx={{ mr: 2 }}
+        sx={style.input}
       ></TextField>
       <Button color={"error"} onClick={hanldeRemoveNote}>
         Delete

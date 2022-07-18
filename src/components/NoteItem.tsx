@@ -11,10 +11,15 @@ interface NoteItemProps {
   index?: number | undefined;
 }
 
+const style = {
+  btn: {
+    color: "black",
+  },
+};
+
 const NoteItem: FC<NoteItemProps> = memo(
   ({ active, title, description, index, timeCreate }) => {
     const dispatch = useAppDispatch();
-    const { idCurrentNote } = useAppSelector((state) => state);
 
     return (
       <Button
@@ -23,7 +28,7 @@ const NoteItem: FC<NoteItemProps> = memo(
           index && dispatch(setIdCurrentNote(index));
         }}
         fullWidth
-        sx={{ color: "black" }}
+        sx={style.btn}
         variant="text"
       >
         <Card sx={{ width: "100%", border: active ? "2px solid black" : null }}>
