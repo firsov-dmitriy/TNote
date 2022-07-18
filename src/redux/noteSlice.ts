@@ -5,13 +5,13 @@ import { INote } from "../types/Note";
 interface NoteState {
   readonly notes: INote[];
   readonly idCurrentNote: IndexableType;
-  readonly serchValue: string;
+  readonly searchValue: string;
 }
 
 const initialState: NoteState = {
   notes: [],
   idCurrentNote: 0,
-  serchValue: "",
+  searchValue: "",
 };
 
 export const noteSlice = createSlice({
@@ -25,7 +25,7 @@ export const noteSlice = createSlice({
       state.idCurrentNote = action.payload;
     },
     setSeachValue(state, action: PayloadAction<string>) {
-      state.serchValue = action.payload;
+      state.searchValue = action.payload;
     },
   },
 });

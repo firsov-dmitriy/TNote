@@ -1,6 +1,6 @@
 import { Button, Card, Typography } from "@mui/material";
 import React, { FC, memo } from "react";
-import { useAppDispatch, useAppSelector } from "../hook";
+import { useAppDispatch } from "../hook";
 import { setIdCurrentNote } from "../redux/noteSlice";
 
 interface NoteItemProps {

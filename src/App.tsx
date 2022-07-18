@@ -13,7 +13,9 @@ import { useLiveQuery } from "dexie-react-hooks";
 const App = memo(() => {
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useAppDispatch();
-  const { idCurrentNote, notes, serchValue } = useAppSelector((state) => state);
+  const { idCurrentNote, notes, searchValue } = useAppSelector(
+    (state) => state
+  );
   const allNotes = useLiveQuery(() =>
     db.notes.toArray().then((notes) => {
       dispatch(getAllNotes(notes));
@@ -28,11 +30,6 @@ const App = memo(() => {
     setIsEdit(false);
   }, [idCurrentNote]);
 
-  for (const note of notes) {
-    if (note.description.toLocaleLowerCase().includes(serchValue)) {
-      console.log(note);
-    }
-  }
   return (
     <>
       <CssBaseline />
