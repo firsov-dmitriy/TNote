@@ -24,7 +24,6 @@ export const deleteNote = async (key: IndexableType) => {
 export const changeNote = async (key: IndexableType, value: string) => {
   try {
     const note = await db.notes.update(key, { description: value });
-    console.log(note);
   } catch (error) {
     console.log(error);
   }

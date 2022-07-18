@@ -14,7 +14,7 @@ import { INote } from "./types/Note";
 const App = memo(() => {
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useAppDispatch();
-  const { idCurrentNote } = useAppSelector((state) => state);
+  const { idCurrentNote, notes, serchValue } = useAppSelector((state) => state);
   const allNotes = useLiveQuery(() =>
     db.notes.toArray().then((notes) => {
       dispatch(getAllNotes(notes));
@@ -26,12 +26,16 @@ const App = memo(() => {
       return note;
     }
   }, [idCurrentNote]);
-  console.log(isEdit);
+
   useEffect(() => {
     setIsEdit(false);
   }, [idCurrentNote]);
-  console.log("sdasfeweqw".indexOf("s"));
 
+  for (const note of notes) {
+    if (note.description.toLocaleLowerCase().includes(serchValue)) {
+      console.log(note);
+    }
+  }
   return (
     <>
       <CssBaseline />
