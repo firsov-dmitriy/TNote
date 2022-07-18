@@ -13,7 +13,7 @@ const style = {
   box: {
     borderRadius: 5,
     border: "2px solid black",
-    height: "80vh",
+    height: "70vh",
     m: 1,
     p: 2,
   },

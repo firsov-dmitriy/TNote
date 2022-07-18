@@ -9,7 +9,7 @@ import NoteItem from "./NoteItem";
 const style = {
   stack: {
     overflowY: "auto",
-    height: "85vh",
+    height: "70vh",
   },
 };
 
