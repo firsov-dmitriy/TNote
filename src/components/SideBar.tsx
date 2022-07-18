@@ -33,7 +33,7 @@ const SideBar: FC<SideBarProps> = memo(({ addNote }) => {
   };
 
   return (
-    <Paper>
+    <>
       <TextField
         variant="standard"
         value={newNote}
@@ -43,7 +43,7 @@ const SideBar: FC<SideBarProps> = memo(({ addNote }) => {
         sx={style.input}
       ></TextField>
       <NoteList />
-    </Paper>
+    </>
   );
 });
 

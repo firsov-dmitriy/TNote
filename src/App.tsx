@@ -9,13 +9,18 @@ import { useAppDispatch, useAppSelector } from "./hook";
 import { getAllNotes } from "./redux/noteSlice";
 import { addNote } from "./service/noteService";
 import { useLiveQuery } from "dexie-react-hooks";
+import SearchBox from "./components/SearchBox";
+
+const style = {
+  container: {
+    flexWrap: "noWrap",
+  },
+};
 
 const App = memo(() => {
   const [isEdit, setIsEdit] = useState(false);
   const dispatch = useAppDispatch();
-  const { idCurrentNote, notes, searchValue } = useAppSelector(
-    (state) => state
-  );
+  const { idCurrentNote } = useAppSelector((state) => state);
   const allNotes = useLiveQuery(() =>
     db.notes.toArray().then((notes) => {
       dispatch(getAllNotes(notes));
@@ -23,7 +28,7 @@ const App = memo(() => {
   );
   const oneNote = useLiveQuery(async () => {
     const note = await db.notes.get(idCurrentNote);
-    return true && note;
+    return note;
   }, [idCurrentNote]);
 
   useEffect(() => {
@@ -34,11 +39,12 @@ const App = memo(() => {
     <>
       <CssBaseline />
       <Container>
-        <Grid container>
+        <SearchBox />
+        <Grid container sx={style.container}>
           <Grid item xl={2}>
             <SideBar addNote={addNote} />
           </Grid>
-          <Grid item lg={9} xl={9}>
+          <Grid item lg={9} xl={9} md={9} xs={9}>
             {isEdit ? (
               <WorkSpace description={oneNote?.description} />
             ) : (

@@ -1,5 +1,5 @@
 import { ButtonGroup, Button, TextField } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { setSeachValue } from "../redux/noteSlice";
 import { deleteNote } from "../service/noteService";
@@ -14,37 +14,24 @@ const style = {
     mt: 2,
     justifyContent: "center",
   },
-  input: {
-    mr: 2,
-  },
 };
 
-const EditNote: FC<EditNoteProps> = ({ handlerEdit }) => {
+const EditNote: FC<EditNoteProps> = memo(({ handlerEdit }) => {
   const { idCurrentNote } = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
-  const [serchValue, setValue] = useState<string>();
 
   const hanldeRemoveNote = () => {
     const conf = window.confirm("Удалить ?");
-    conf && idCurrentNote && deleteNote(idCurrentNote);
+    conf && deleteNote(idCurrentNote);
   };
+
   return (
     <ButtonGroup sx={style.btnGroup} aria-label="text button group">
-      <TextField
-        onChange={(eve) => setValue(eve.target.value)}
-        onKeyDown={(eve) => {
-          if (eve.key === "Enter" && serchValue)
-            dispatch(setSeachValue(serchValue));
-        }}
-        label={"Search"}
-        sx={style.input}
-      ></TextField>
       <Button color={"error"} onClick={hanldeRemoveNote}>
         Delete
       </Button>
       <Button onClick={() => handlerEdit(true)}>Edit</Button>
     </ButtonGroup>
   );
-};
+});
 
 export default EditNote;

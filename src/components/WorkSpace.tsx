@@ -11,9 +11,10 @@ interface WorkSpaceProps {
 
 const style = {
   box: {
-    width: "75%",
-    height: "100%",
-    mt: 3,
+    height: "100vh",
+    m: "30px 0 0 30px",
+    // display: "flex",
+    // justifyContent: "center",
   },
 };
 

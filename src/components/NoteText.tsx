@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { marked } from "marked";
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { INote } from "../types/Note";
 import EditNote from "./EditNote";
 
@@ -19,13 +19,20 @@ const style = {
   },
 };
 
-const NoteText: FC<NoteTextProps> = ({ note, handlerEdit }) => {
+const NoteText: FC<NoteTextProps> = memo(({ note, handlerEdit }) => {
   return (
     <Box>
       <EditNote handlerEdit={handlerEdit} />
-      <Box sx={style.box}>{marked.parse(note.description)}</Box>
+      <Box sx={style.box}>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: marked(note.description),
+          }}
+          id="rootNote"
+        ></div>
+      </Box>
     </Box>
   );
-};
+});
 
 export default NoteText;
