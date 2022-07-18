@@ -13,8 +13,6 @@ const style = {
   box: {
     height: "100vh",
     m: "30px 0 0 30px",
-    // display: "flex",
-    // justifyContent: "center",
   },
 };
 
