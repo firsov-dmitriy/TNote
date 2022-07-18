@@ -5,7 +5,7 @@ import { INote } from "../types/Note";
 import EditNote from "./EditNote";
 
 interface NoteTextProps {
-  note: INote | undefined;
+  note: INote;
   handlerEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -23,7 +23,7 @@ const NoteText: FC<NoteTextProps> = ({ note, handlerEdit }) => {
   return (
     <Box>
       <EditNote handlerEdit={handlerEdit} />
-      <Box sx={style.box}>{note && marked.parse(note.description)}</Box>
+      <Box sx={style.box}>{marked.parse(note.description)}</Box>
     </Box>
   );
 };

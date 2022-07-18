@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Paper, TextField } from "@mui/material";
 import React, { FC, memo, useState } from "react";
 import { useAppSelector } from "../hook";
 import { INote } from "../types/Note";
@@ -27,11 +27,13 @@ const SideBar: FC<SideBarProps> = memo(({ addNote }) => {
         description: "Нет описания",
         timeCreate: noteDate.getMonth() + "." + noteDate.getFullYear(),
       });
+      setNewNote("");
+      eve.target.blur();
     }
   };
 
   return (
-    <Box>
+    <Paper>
       <TextField
         variant="standard"
         value={newNote}
@@ -41,7 +43,7 @@ const SideBar: FC<SideBarProps> = memo(({ addNote }) => {
         sx={style.input}
       ></TextField>
       <NoteList />
-    </Box>
+    </Paper>
   );
 });
 

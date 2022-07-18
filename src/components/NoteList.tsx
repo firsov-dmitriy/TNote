@@ -27,7 +27,7 @@ const NoteList: FC<{}> = memo(({}) => {
           />
         ) : (
           <NoteItem
-            index={note.id}
+            index={note.id ? note.id : 0}
             active={false}
             title={note.title}
             timeCreate={note.timeCreate}

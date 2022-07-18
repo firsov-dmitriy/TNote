@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import SideBar from "./components/SideBar";
 import WorkSpace from "./components/WorkSpace";
-import { Box, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import NoteText from "./components/NoteText";
 import { db } from "./db";
@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "./hook";
 import { getAllNotes } from "./redux/noteSlice";
 import { addNote } from "./service/noteService";
 import { useLiveQuery } from "dexie-react-hooks";
-import { INote } from "./types/Note";
 
 const App = memo(() => {
   const [isEdit, setIsEdit] = useState(false);
@@ -21,10 +20,8 @@ const App = memo(() => {
     })
   );
   const oneNote = useLiveQuery(async () => {
-    if (idCurrentNote) {
-      const note = await db.notes.get(idCurrentNote);
-      return note;
-    }
+    const note = await db.notes.get(idCurrentNote);
+    return true && note;
   }, [idCurrentNote]);
 
   useEffect(() => {
@@ -40,7 +37,7 @@ const App = memo(() => {
     <>
       <CssBaseline />
       <Container>
-        <Grid container display={"flex"}>
+        <Grid container>
           <Grid item xl={2}>
             <SideBar addNote={addNote} />
           </Grid>
@@ -48,7 +45,7 @@ const App = memo(() => {
             {isEdit ? (
               <WorkSpace description={oneNote?.description} />
             ) : (
-              <NoteText note={oneNote} handlerEdit={setIsEdit} />
+              oneNote && <NoteText note={oneNote} handlerEdit={setIsEdit} />
             )}
           </Grid>
         </Grid>

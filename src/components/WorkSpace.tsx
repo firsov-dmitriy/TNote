@@ -22,9 +22,7 @@ const WorkSpace: FC<WorkSpaceProps> = memo(({ description }) => {
   return (
     <Box sx={style.box}>
       <SimpleMDE
-        onChange={(eve) =>
-          idCurrentNote && changeNote(idCurrentNote, eve.toString())
-        }
+        onChange={(eve) => changeNote(idCurrentNote, eve.toString())}
         value={description}
       />
     </Box>

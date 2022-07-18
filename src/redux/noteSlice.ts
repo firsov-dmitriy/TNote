@@ -4,13 +4,13 @@ import { INote } from "../types/Note";
 
 interface NoteState {
   readonly notes: INote[];
-  readonly idCurrentNote: IndexableType | null;
+  readonly idCurrentNote: IndexableType;
   readonly serchValue: string;
 }
 
 const initialState: NoteState = {
   notes: [],
-  idCurrentNote: null,
+  idCurrentNote: 0,
   serchValue: "",
 };
 
