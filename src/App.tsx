@@ -1,7 +1,56 @@
-import React from "react";
+import React, { memo, useEffect, useState } from "react";
+import SideBar from "./components/SideBar";
+import WorkSpace from "./components/WorkSpace";
+import { Box, Container, Grid } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import NoteText from "./components/NoteText";
+import { db } from "./db";
+import { useAppDispatch, useAppSelector } from "./hook";
+import { getAllNotes } from "./redux/noteSlice";
+import { addNote } from "./service/noteService";
+import { useLiveQuery } from "dexie-react-hooks";
+import { INote } from "./types/Note";
 
-function App() {
-  return <>Test Note</>;
-}
+const App = memo(() => {
+  const [isEdit, setIsEdit] = useState(false);
+  const dispatch = useAppDispatch();
+  const { idCurrentNote } = useAppSelector((state) => state);
+  const allNotes = useLiveQuery(() =>
+    db.notes.toArray().then((notes) => {
+      dispatch(getAllNotes(notes));
+    })
+  );
+  const oneNote = useLiveQuery(async () => {
+    if (idCurrentNote) {
+      const note = await db.notes.get(idCurrentNote);
+      return note;
+    }
+  }, [idCurrentNote]);
+  console.log(isEdit);
+  useEffect(() => {
+    setIsEdit(false);
+  }, [idCurrentNote]);
+  console.log("sdasfeweqw".indexOf("s"));
+
+  return (
+    <>
+      <CssBaseline />
+      <Container>
+        <Grid container display={"flex"}>
+          <Grid item xl={2}>
+            <SideBar addNote={addNote} />
+          </Grid>
+          <Grid item lg={9} xl={9}>
+            {isEdit ? (
+              <WorkSpace description={oneNote?.description} />
+            ) : (
+              <NoteText note={oneNote} handlerEdit={setIsEdit} />
+            )}
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+});
 
 export default App;

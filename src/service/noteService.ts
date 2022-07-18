@@ -1,18 +1,29 @@
+import { IndexableType } from "dexie";
 import { db } from "./../db";
 import { INote } from "./../types/Note";
-export const addNote = async ({
-  title,
-  id,
-  description,
-  timeCreate,
-}: INote) => {
+export const addNote = async ({ title, description, timeCreate }: INote) => {
   try {
-    const note = await db.notes.add({
+    const id = await db.notes.add({
       title,
-      id,
       description,
       timeCreate,
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteNote = async (key: IndexableType) => {
+  try {
+    const deletedNote = await db.notes.delete(key);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changeNote = async (key: IndexableType, value: string) => {
+  try {
+    const note = await db.notes.update(key, { description: value });
     console.log(note);
   } catch (error) {
     console.log(error);
